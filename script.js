@@ -1,4 +1,4 @@
-// Three.js Starry Background
+// Three.js Starry Background with Parallax Effect
 const container = document.getElementById('canvas-container');
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -33,14 +33,33 @@ const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
 scene.add(particlesMesh);
 camera.position.z = 50;
 
+// Enhanced mouse interaction with parallax effect
 let mouseX = 0, mouseY = 0;
+let targetX = 0, targetY = 0;
+let windowHalfX = window.innerWidth / 2;
+let windowHalfY = window.innerHeight / 2;
+
 document.addEventListener('mousemove', (e) => {
-    mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-    mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+    mouseX = (e.clientX - windowHalfX) / 100;
+    mouseY = (e.clientY - windowHalfY) / 100;
+});
+
+// Parallax scrolling effect
+let scrollY = 0;
+window.addEventListener('scroll', () => {
+    scrollY = window.scrollY;
 });
 
 function animate() {
     requestAnimationFrame(animate);
+
+    // Smooth camera movement for parallax effect
+    targetX = mouseX * 0.3;
+    targetY = mouseY * 0.3;
+
+    // Apply parallax effect based on scroll position
+    camera.position.y = -(scrollY * 0.01);
+
     const positions = particlesGeometry.attributes.position.array;
     for (let i = 0; i < particlesCount * 3; i += 3) {
         positions[i] += velocities[i];
@@ -51,13 +70,20 @@ function animate() {
         if (positions[i + 2] > 75 || positions[i + 2] < -75) velocities[i + 2] *= -1;
     }
     particlesGeometry.attributes.position.needsUpdate = true;
-    particlesMesh.rotation.x += 0.001 + mouseY * 0.002;
-    particlesMesh.rotation.y += 0.001 + mouseX * 0.002;
+
+    // Enhanced particle rotation with smoother movement
+    particlesMesh.rotation.x += 0.0005;
+    particlesMesh.rotation.y += 0.0005;
+    particlesMesh.rotation.x += (targetY - particlesMesh.rotation.x) * 0.05;
+    particlesMesh.rotation.y += (targetX - particlesMesh.rotation.y) * 0.05;
+
     renderer.render(scene, camera);
 }
 animate();
 
 window.addEventListener('resize', () => {
+    windowHalfX = window.innerWidth / 2;
+    windowHalfY = window.innerHeight / 2;
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -103,6 +129,28 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
+// Add section visibility animation
+const sections = document.querySelectorAll('section');
+const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+};
+
+const sectionObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            // Once the animation is done, stop observing
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+
+sections.forEach(section => {
+    sectionObserver.observe(section);
+});
+
 // Projects Redirection to GitHub
 document.querySelectorAll('.project-card').forEach(card => {
     card.addEventListener('click', () => {
@@ -110,5 +158,16 @@ document.querySelectorAll('.project-card').forEach(card => {
         if (githubUrl) {
             window.open(githubUrl, '_blank');
         }
+    });
+});
+
+// Enhanced hover effects for buttons and links
+document.querySelectorAll('.cta-button, .read-more, .nav-link, .social-link').forEach(element => {
+    element.addEventListener('mouseenter', () => {
+        element.style.transition = 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+    });
+
+    element.addEventListener('mouseleave', () => {
+        element.style.transition = 'all 0.3s ease';
     });
 });

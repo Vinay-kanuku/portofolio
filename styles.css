@@ -44,27 +44,29 @@ body {
     z-index: 1;
 }
 
-/* Navigation (Completely Transparent) */
+/* Navigation (Improved Visibility and Hover Effects) */
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 10%;
+    padding: 0.3rem 10%;
     position: fixed;
     width: 100%;
     z-index: 100;
     background: rgba(0, 0, 0, 0);
-    /* Fully transparent */
+    /* Semi-transparent for better visibility */
     backdrop-filter: blur(10px);
     /* Frosted glass effect */
     transition: var(--transition);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    /* Subtle shadow for better visibility */
 }
 
 nav.scrolled {
     padding: 1rem 10%;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-    background: rgba(0, 0, 0, 0);
-    /* Keep transparent even when scrolled */
+    background: rgba(10, 10, 10, 0.8);
+    /* Slightly more opaque when scrolled */
 }
 
 .logo {
@@ -84,14 +86,35 @@ nav.scrolled {
 }
 
 .nav-link {
-    color: var(--text-secondary);
+    color: var(--text-color);
+    /* Improved contrast for better visibility */
     text-decoration: none;
     font-weight: 500;
+    transition: var(--transition);
+    position: relative;
+    padding: 0.5rem 0;
+    letter-spacing: 0.5px;
+    /* Improved letter spacing for readability */
+}
+
+/* Enhanced hover effect for navigation links */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: var(--primary-color);
     transition: var(--transition);
 }
 
 .nav-link:hover {
     color: var(--primary-color);
+}
+
+.nav-link:hover::after {
+    width: 100%;
 }
 
 .menu-toggle {
@@ -122,6 +145,10 @@ header {
     position: relative;
     width: 100%;
     margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Improved alignment for balance */
 }
 
 .name-container {
@@ -131,7 +158,8 @@ header {
 .subtitle {
     color: var(--primary-color);
     font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+
+    margin-bottom: 0.3rem;
     opacity: 0;
     animation: fadeIn 1s ease forwards 0.5s;
 }
@@ -162,94 +190,125 @@ header {
 }
 
 .about-image {
-    position: absolute;
-    right: 8%;
-    top: 70%;
-    transform: translateY(-50%);
+    position: relative;
+    /* Changed from absolute for better alignment */
     max-width: 300px;
     width: 100%;
     padding-top: 1rem;
-    
     /* Slight padding to ensure it stays below navbar */
+    animation: fadeIn 1.5s ease forwards;
+    /* Added fade-in animation */
+
 }
 
 .about-image img {
     width: 100%;
-    border-radius: 10%;
+    border-radius: 50%;
     /* Use a soft gradient mask for smoother edges */
     -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
     mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
-    /* Soft glow effect around the image to blend into background */
-    filter: drop-shadow(0px 0px 30px rgba(0, 0, 0, 0.5));
+    /* Enhanced shadow for better emphasis */
+    box-shadow: 0 0 30px rgba(72, 71, 71, 0.2);
+    filter: drop-shadow(0px 0px 15px rgba(12, 12, 12, 0));
     /* Smooth transition for hover effects */
-    transition: filter 0.3s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    border: 2px solid rgba(65, 63, 63, 0.1);
+    /* Subtle border */
 }
 
-/* Optional: Enhance effect on hover */
+/* Enhanced hover effect */
 .about-image img:hover {
-    filter: drop-shadow(0px 0px 25px rgba(0, 0, 0, 0.7));
+    transform: scale(1.03);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+    filter: drop-shadow(0px 0px 25px rgba(0, 0, 0, 0.3));
 }
 
 h2 {
-    font-size: 2.5rem;
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: var(--primary-color);
+    /* Changed from text-secondary for better contrast */
+    margin-bottom: 1rem;
     opacity: 0;
     animation: fadeIn 1s ease forwards 1.5s;
+    text-shadow: 0 0 10px rgba(255, 69, 0, 0.3);
+    /* Subtle text shadow for emphasis */
 }
 
 .header-text {
     max-width: 600px;
-    color: var(--text-secondary);
-    font-size: 1.1rem;
+    color: var(--text-color);
+    /* Changed from text-secondary for better contrast */
+    font-size: 1.2rem;
+    /* Increased size for better emphasis */
     opacity: 0;
     animation: fadeIn 1s ease forwards 2s;
+    line-height: 1.8;
+    /* Improved line height for readability */
 }
 
 @keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
+/* Enhanced CTA Button */
 .cta-button {
     display: inline-block;
-    color: var(--primary-color);
-    padding: 1rem 2rem;
+    color: var(--text-color);
+    /* Changed to white for better contrast */
+    background-color: var(--primary-color);
+    /* Added background color */
+    padding: 1.2rem 2.5rem;
+    /* Increased size */
     font-weight: 600;
+    font-size: 1.1rem;
+    /* Increased font size */
     text-decoration: none;
     transition: var(--transition);
     margin-top: 2rem;
     position: relative;
-    background: none;
-    border: none;
-}
-
-.cta-button::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0.5rem;
-    left: 50%;
-    background: var(--primary-color);
-    transition: var(--transition);
-}
-
-.cta-button:hover::after {
-    width: 100%;
-    left: 0;
+    border: 2px solid var(--primary-color);
+    border-radius: 30px;
+    /* Rounded corners */
+    box-shadow: 0 0 15px rgba(255, 69, 0, 0.4);
+    /* Subtle glow effect */
+    letter-spacing: 1px;
+    /* Improved letter spacing */
+    text-transform: uppercase;
+    /* Uppercase for emphasis */
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 2.5s;
 }
 
 .cta-button:hover {
-    color: var(--secondary-color);
+    background-color: transparent;
+    color: var(--primary-color);
+    box-shadow: 0 0 25px rgba(255, 69, 0, 0.6);
+    /* Enhanced glow on hover */
+    transform: translateY(-5px);
+    /* Slight lift effect */
 }
 
 /* Sections */
 section {
     padding: 6rem 10%;
     min-height: 80vh;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+/* Utility class for section animation */
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .section-title {
@@ -287,7 +346,8 @@ section {
 }
 
 .about-description {
-    color: var(--text-secondary);
+    color: var(--text-color);
+    /* Changed for better readability */
     font-size: 1.2rem;
     line-height: 1.8;
     margin-bottom: 2rem;
@@ -339,11 +399,13 @@ section {
     position: relative;
     cursor: pointer;
     /* Indicate clickable */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    /* Added shadow for depth */
 }
 
 .project-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .project-image img {
@@ -393,11 +455,13 @@ section {
     border-radius: 8px;
     overflow: hidden;
     transition: var(--transition);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    /* Added shadow for depth */
 }
 
 .article-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .article-image img {
@@ -432,6 +496,23 @@ section {
     font-weight: 600;
     text-decoration: none;
     transition: var(--transition);
+    position: relative;
+    padding-bottom: 2px;
+}
+
+.read-more::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: var(--primary-color);
+    transition: var(--transition);
+}
+
+.read-more:hover::after {
+    width: 100%;
 }
 
 .read-more:hover {
@@ -490,6 +571,10 @@ section {
 .social-link:hover {
     background: var(--primary-color);
     color: var(--text-color);
+    transform: translateY(-5px);
+    /* Added lift effect */
+    box-shadow: 0 5px 15px rgba(255, 69, 0, 0.3);
+    /* Added glow effect */
 }
 
 /* Footer */
@@ -504,6 +589,8 @@ footer {
     font-weight: 700;
     margin-bottom: 1rem;
     color: var(--text-color);
+    text-decoration: none;
+    display: inline-block;
 }
 
 .footer-logo span {
@@ -514,8 +601,31 @@ footer {
     color: var(--text-secondary);
 }
 
-/* Media Queries */
+/* Media Queries - Improved Responsiveness */
+@media (max-width: 1200px) {
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .name-container {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .header-text {
+        margin: 0 auto;
+        text-align: center;
+    }
+}
+
 @media (max-width: 992px) {
+    :root {
+        /* Slightly smaller base font size for medium screens */
+        font-size: 15px;
+    }
 
     header,
     section {
@@ -523,22 +633,13 @@ footer {
     }
 
     header {
-        padding-top: 3rem;
-        /* Reduced padding for smaller screens */
-    }
-
-    .header-content {
-        flex-direction: column;
-        align-items: flex-start;
+        padding-top: 7rem;
+        /* Increased padding to account for fixed navbar */
     }
 
     .about-image {
-        position: static;
-        transform: none;
         max-width: 250px;
-        margin-top: 1rem;
-        padding-top: 0;
-        /* Remove padding on mobile */
+        margin: 0 auto;
     }
 
     .name-3d {
@@ -566,6 +667,11 @@ footer {
 }
 
 @media (max-width: 768px) {
+    :root {
+        /* Smaller base font size for mobile */
+        font-size: 14px;
+    }
+
     .nav-links {
         display: none;
         position: fixed;
@@ -573,19 +679,31 @@ footer {
         right: -100%;
         width: 60%;
         height: 100vh;
-        background: var(--bg-secondary);
+        background: rgba(26, 26, 26, 0.95);
+        /* Semi-transparent for better look */
+        backdrop-filter: blur(10px);
+        /* Frosted glass effect */
         flex-direction: column;
         justify-content: center;
         align-items: center;
         transition: var(--transition);
+        z-index: 101;
+        /* Above navbar */
     }
 
     .nav-links.active {
         right: 0;
     }
 
+    .nav-link {
+        margin: 1rem 0;
+        font-size: 1.2rem;
+    }
+
     .menu-toggle {
         display: block;
+        z-index: 102;
+        /* Above nav-links */
     }
 
     .menu-toggle.active .bar:nth-child(1) {
@@ -603,5 +721,59 @@ footer {
     .projects-grid,
     .articles-grid {
         grid-template-columns: 1fr;
+    }
+
+    .header-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .name-3d {
+        font-size: 2.5rem;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+
+    .header-text {
+        text-align: center;
+        font-size: 1.1rem;
+    }
+
+    .cta-button {
+        display: block;
+        width: 80%;
+        text-align: center;
+        margin: 2rem auto 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .name-3d {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .header-text {
+        font-size: 1rem;
+    }
+
+    .about-image {
+        max-width: 200px;
+    }
+
+    section {
+        padding: 4rem 1rem;
+    }
+
+    .cta-button {
+        width: 100%;
+        padding: 1rem 1.5rem;
     }
 }
