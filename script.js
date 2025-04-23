@@ -90,16 +90,16 @@ window.addEventListener('resize', () => {
 });
 
 // Name Animation
-const name = document.querySelector('.name-3d');
-const letters = name.textContent.split('');
-name.textContent = '';
-letters.forEach((letter, index) => {
-    const span = document.createElement('span');
-    span.textContent = letter === ' ' ? '\u00A0' : letter;
-    span.style.transitionDelay = `${index * 0.1}s`;
-    name.appendChild(span);
-    setTimeout(() => span.classList.add('animate'), 100);
-});
+// const name = document.querySelector('.name-3d');
+// const letters = name.textContent.split('');
+// name.textContent = '';
+// letters.forEach((letter, index) => {
+//     const span = document.createElement('span');
+//     span.textContent = letter === ' ' ? '\u00A0' : letter;
+//     span.style.transitionDelay = `${index * 0.1}s`;
+//     name.appendChild(span);
+//     setTimeout(() => span.classList.add('animate'), 100);
+// });
 
 // Navigation
 const nav = document.querySelector('nav');
